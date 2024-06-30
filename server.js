@@ -12,6 +12,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/guru', (req, res) => {
+  res.sendFile(__dirname + '/guru.html');
+});
+
 wss.on('connection', (ws) => {
   ws.send(JSON.stringify(data));
 
