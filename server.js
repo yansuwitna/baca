@@ -1,19 +1,27 @@
+require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-let data = { message: "Hello, World!" };
+let data = { message: "Ayo Belajar" };
+
+app.use(express.static('public')); // Menggunakan folder 'public' untuk file statis
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/guru', (req, res) => {
-  res.sendFile(__dirname + '/guru.html');
+  res.sendFile(path.join(__dirname, 'public', 'guru.html'));
+});
+
+app.get('/config', (req, res) => {
+  res.json({ websocketUrl: process.env.WEBSOCKET_URL });
 });
 
 wss.on('connection', (ws) => {
@@ -29,6 +37,7 @@ wss.on('connection', (ws) => {
   });
 });
 
-server.listen(3000, () => {
-  console.log('Server is listening on port 3000');
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });

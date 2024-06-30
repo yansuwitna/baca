@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Belajar Baca dan Menulis</title>
+    <title>Real-time App - Guru</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Poppins -->
@@ -14,18 +14,27 @@
             font-family: 'Poppins', sans-serif;
             padding-top: 50px;
         }
+
+        h1{
+        padding: 30px;
+        border: solid 2px black;
+        border-radius: 10px;
+        box-shadow: 1px 0px 11px 7px rgba(166,101,101,0.25);
+        -webkit-box-shadow: 1px 0px 11px 7px rgba(166,101,101,0.25);
+        -moz-box-shadow: 1px 0px 11px 7px rgba(166,101,101,0.25);
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="text-center">
-                <h1 id="message" class="display-4">Loading...</h1>
+            <div class="col-md-12 text-center">
+                <h1 id="message" class="display-4">Ayo Belajar...</h1>
                 <div class="form-group">
                     <input type="text" id="inputMessage" class="form-control" placeholder="Type a message">
                 </div>
-                <button id="sendMessage" class="btn btn-primary">Kirim</button>
+                <button id="sendMessage" class="btn btn-primary">Send</button>
             </div>
         </div>
     </div>
@@ -36,19 +45,23 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        const ws = new WebSocket('wss://baca.nanatech.id');
+        fetch('/config')
+            .then(response => response.json())
+            .then(config => {
+                const ws = new WebSocket(config.websocketUrl);
 
-        ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            document.getElementById('message').innerText = data.message;
-        };
+                ws.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    document.getElementById('message').innerText = data.message;
+                };
 
-        document.getElementById('sendMessage').onclick = () => {
-            const inputMessage = document.getElementById('inputMessage').value;
-            ws.send(JSON.stringify({
-                message: inputMessage
-            }));
-        };
+                document.getElementById('sendMessage').onclick = () => {
+                    const inputMessage = document.getElementById('inputMessage').value;
+                    ws.send(JSON.stringify({
+                        message: inputMessage
+                    }));
+                };
+            });
     </script>
 </body>
 
