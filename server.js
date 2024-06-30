@@ -12,16 +12,13 @@ let data = { message: "Ayo Belajar" };
 
 app.use(express.static('public')); // Menggunakan folder 'public' untuk file statis
 
-
-
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/guru', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/guru.html'));
+  res.sendFile(path.join(__dirname, 'public', 'guru.html'));
 });
-
 
 app.get('/config', (req, res) => {
   res.json({ websocketUrl: process.env.WEBSOCKET_URL });
