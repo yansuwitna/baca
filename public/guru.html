@@ -49,7 +49,7 @@
             .then(response => response.json())
             .then(config => {
                 const ws = new WebSocket(config.websocketUrl);
-
+                console.log(config.websocketUrl);
                 ws.onmessage = (event) => {
                     const data = JSON.parse(event.data);
                     console.log(data.message);
