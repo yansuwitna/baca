@@ -49,6 +49,7 @@
 
                 ws.onmessage = (event) => {
                     const data = JSON.parse(event.data);
+                    console.log(data.message);
                     document.getElementById('message').innerText = data.message;
                 };
             });

@@ -52,11 +52,13 @@
 
                 ws.onmessage = (event) => {
                     const data = JSON.parse(event.data);
+                    console.log(data.message);
                     document.getElementById('message').innerText = data.message;
                 };
 
                 document.getElementById('sendMessage').onclick = () => {
                     const inputMessage = document.getElementById('inputMessage').value;
+                    console.log(inputMessage);
                     ws.send(JSON.stringify({
                         message: inputMessage
                     }));
