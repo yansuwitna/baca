@@ -26,7 +26,6 @@ app.get('/config', (req, res) => {
 
 wss.on('connection', (ws) => {
   ws.send(JSON.stringify(data));
-
   ws.on('message', (message) => {
     data = JSON.parse(message);
     wss.clients.forEach((client) => {
