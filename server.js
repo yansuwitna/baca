@@ -1,42 +1,42 @@
-require('dotenv').config(); // Load environment variables from .env file
+// server.js
+
 const express = require('express');
 const http = require('http');
-const WebSocket = require('ws');
+const socketIo = require('socket.io');
 const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const io = socketIo(server);
 
-let data = { message: "Ayo Belajar" };
+// Serve static files (public directory)
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.static('public')); // Menggunakan folder 'public' untuk file statis
+// Socket.IO connection
+io.on('connection', (socket) => {
+    console.log('Client connected: ' + socket.id);
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+    // Handle incoming messages from teacher
+    socket.on('sendMessage', (data) => {
+        console.log('Message from teacher:', data);
 
-app.get('/guru', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'guru.html'));
-});
-
-app.get('/config', (req, res) => {
-  res.json({ websocketUrl: process.env.WEBSOCKET_URL });
-});
-
-wss.on('connection', (ws) => {
-  ws.send(JSON.stringify(data));
-  ws.on('message', (message) => {
-    data = JSON.parse(message);
-    wss.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(JSON.stringify(data));
-      }
+        // Broadcast the message to all connected clients (students)
+        io.emit('messageToStudents', { message: data.message });
     });
-  });
+
+    // Handle disconnect
+    socket.on('disconnect', () => {
+        console.log('Client disconnected: ' + socket.id);
+    });
+});
+
+// Route for admin page
+app.get('/guru', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
 const PORT = process.env.PORT || 3000;
+
 server.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });

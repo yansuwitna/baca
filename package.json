@@ -1,21 +1,7 @@
 {
-  "name": "baca",
-  "version": "1.0.0",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.4.5",
+    "bootstrap": "^5.3.3",
     "express": "^4.19.2",
-    "https": "^1.0.0",
-    "path-extra": "^4.3.0",
-    "ws": "^8.17.1",
-    "wss": "^3.3.4"
-  },
-  "description": ""
+    "socket.io": "^4.7.5"
+  }
 }
