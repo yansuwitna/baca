@@ -73,7 +73,7 @@
         // Handle incoming messages from teacher (server)
         socket.on('messageToStudents', (data) => {
             // console.log('Message from teacher:', data.message);
-            updateMessage(data.message); // Update message in div
+            updateMessage(data); // Update message in div
         });
     </script>
 </body>
