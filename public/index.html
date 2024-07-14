@@ -28,7 +28,7 @@
     <div class="container mt-5">
         <div id="messageContainer" class="mt-3"></div>
         <div style="margin-top: 10px; text-align: center;">
-        <button onclick="speak()" class="btn btn-warning">Bicara</button>
+            <button onclick="speak()" class="btn btn-warning" id="bicara">Bicara</button>
         </div>
     </div>
 
@@ -36,6 +36,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         let isi = 'kosong';
+
         function speak() {
             // Ambil teks dari textarea
             //const text = document.getElementById('messageContainer').value;
@@ -61,6 +62,10 @@
             messageElement.textContent = message;
             document.getElementById('messageContainer').innerHTML = (message);
             isi = message;
+            document.getElementById('bicara').classList.add('hidden');
+            setTimeout(function () {
+                document.getElementById('bicara').classList.add('show');
+            }, 60000);
         }
 
         // Handle incoming messages from teacher (server)
