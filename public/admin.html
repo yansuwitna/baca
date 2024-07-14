@@ -32,7 +32,8 @@
                 <label for="messageInput">Masukkan Pesan </label>
                 <input type="text" class="form-control" id="messageInput" required>
             </div>
-            <button type="submit" class="btn btn-primary">Kirim</button>
+            <button type="submit" class="btn btn-primary">Kirim</button> 
+            <button type="button" onclick="bicara()" class="btn btn-danger">Bicara</button>
         </form>
     </div>
 
@@ -50,6 +51,12 @@
             });
             document.getElementById('messageInput').value = ''; // Clear input field
             document.getElementById('messageContainer').innerHTML = (message);
+        }
+
+        function bicara(){
+            socket.emit('bicara', {
+                bicara
+            });
         }
     </script>
 </body>

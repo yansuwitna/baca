@@ -28,13 +28,14 @@
     <div class="container mt-5">
         <div id="messageContainer" class="mt-3"></div>
         <div style="margin-top: 10px; text-align: center;">
-            <button onclick="speak()" class="btn btn-warning" id="bicara">Bicara</button>
+            <button onclick="speak()" class="btn btn-warning" id="bicara" style="display: none;">Bicara</button>
         </div>
     </div>
 
     <!-- Socket.IO Client Library -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        let kondisi = 0;
         let isi = 'kosong';
 
         function speak() {
@@ -54,7 +55,7 @@
             window.speechSynthesis.speak(speech);
         }
 
-        const socket = io();
+        
 
         // Function to update message in div
         function updateMessage(message) {
@@ -62,16 +63,21 @@
             messageElement.textContent = message;
             document.getElementById('messageContainer').innerHTML = (message);
             isi = message;
-            document.getElementById('bicara').style.display = 'none';
-            setTimeout(function () {
-                document.getElementById('bicara').style.display = 'block';
-            }, 60000);
+            //document.getElementById('bicara').style.display = 'none';
+            // setTimeout(function () {
+            //     document.getElementById('bicara').style.display = 'block';
+            // }, 60000);
         }
 
+        const socket = io();
         // Handle incoming messages from teacher (server)
-        socket.on('messageToStudents', (data) => {
-            console.log('Message from teacher:', data.message);
+        socket.on('sendMessage', (data) => {
+            // console.log('Message from teacher:', data.message);
             updateMessage(data.message); // Update message in div
+        });
+
+        socket.on('bicara', (data) => {
+            speak(); 
         });
     </script>
 </body>
