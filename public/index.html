@@ -10,6 +10,39 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            animation: changeColor 10s infinite;
+
+
+        }
+
+        @keyframes changeColor {
+            0% {
+                background-color: #ff9999;
+                /* Merah muda */
+            }
+
+            25% {
+                background-color: #99ff99;
+                /* Hijau muda */
+            }
+
+            50% {
+                background-color: #9999ff;
+                /* Biru muda */
+            }
+
+            75% {
+                background-color: #ffff99;
+                /* Kuning muda */
+            }
+
+            100% {
+                background-color: #ff9999;
+                /* Kembali ke merah muda */
+            }
+        }
+
         #messageContainer {
             padding: 30px;
             border: solid 2px black;
@@ -27,10 +60,10 @@
 <body>
     <div class="container mt-5">
         <div style="margin-top: 10px; text-align: center;" id="bicara" style="display: none;">
-            <button onclick="speak()" class="btn btn-warning" >Bicara</button>
+            <button onclick="speak()" class="btn btn-warning">Bicara</button>
         </div>
         <div id="messageContainer" class="mt-3"></div>
-        
+
     </div>
 
     <!-- Socket.IO Client Library -->
