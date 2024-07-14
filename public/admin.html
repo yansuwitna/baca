@@ -53,6 +53,10 @@
                 /* Kembali ke merah muda */
             }
         }
+
+        button{
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -65,7 +69,7 @@
                 <label for="messageInput">Masukkan Pesan </label>
                 <input type="text" class="form-control" id="messageInput" required onkeyup="kirim()">
             </div>
-            <div style="text-align: center; padding: 10px;">
+            <div style="text-align: center;">
                 <!-- <button type="submit" class="btn btn-success">Kirim</button> -->
                 <button type="button" onclick="bicara()" class="btn btn-info">Bicara</button>
                 <button type="button" onclick="tampilkan()" class="btn btn-warning">Tampilkan</button>
