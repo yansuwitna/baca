@@ -33,13 +33,14 @@
     <!-- Socket.IO Client Library -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        let isi = 'kosong';
         function speak() {
             // Ambil teks dari textarea
-            const text = document.getElementById('messageContainer').value;
+            //const text = document.getElementById('messageContainer').value;
 
             // Buat objek SpeechSynthesisUtterance
             const speech = new SpeechSynthesisUtterance();
-            speech.text = text;
+            speech.text = isi;
             speech.lang = 'id-ID'; // Atur bahasa sesuai kebutuhan
 
             // Pilih suara (opsional)
@@ -57,6 +58,7 @@
             const messageElement = document.createElement('div');
             messageElement.textContent = message;
             document.getElementById('messageContainer').innerHTML = (message);
+            isi = message;
         }
 
         // Handle incoming messages from teacher (server)
