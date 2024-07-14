@@ -62,10 +62,10 @@
             messageElement.textContent = message;
             document.getElementById('messageContainer').innerHTML = (message);
             isi = message;
-            document.getElementById('bicara').classList.add('hidden');
+            document.getElementById('bicara').style.display = 'none';
             setTimeout(function () {
-                document.getElementById('bicara').classList.add('show');
-            }, 60000);
+                document.getElementById('myButton').style.display = 'block';
+            }, 6000);
         }
 
         // Handle incoming messages from teacher (server)
