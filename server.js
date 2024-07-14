@@ -14,21 +14,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Socket.IO connection
 io.on('connection', (socket) => {
-    // console.log('Client connected: ' + socket.id);
 
-    // Handle incoming messages from teacher
     socket.on('sendMessage', (data) => {
-        // console.log('Message from teacher:', data);
-
-        // Broadcast the message to all connected clients (students)
         io.emit('messageToStudents', { message: data.message });
     });
 
     socket.on('bicara', (data) => {
-        // console.log('Message from teacher:', data);
-
-        // Broadcast the message to all connected clients (students)
         io.emit('bicaraToStudents', { message: data.message });
+    });
+
+    socket.on('tampilkan', (data) => {
+        io.emit('tampilkanToStudents', { message: data.message });
+    });
+
+    socket.on('hilangkan', (data) => {
+        io.emit('hilangkanToStudents', { message: data.message });
     });
 
     // Handle disconnect

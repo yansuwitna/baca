@@ -10,16 +10,16 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        #messageContainer{
-        padding: 30px;
-        border: solid 2px black;
-        border-radius: 10px;
-        box-shadow: 1px 0px 11px 7px rgba(166,101,101,0.25);
-        -webkit-box-shadow: 1px 0px 11px 7px rgba(166,101,101,0.25);
-        -moz-box-shadow: 1px 0px 11px 7px rgba(166,101,101,0.25);
-        font-size: 40px;
-        font-weight: 400;
-        text-align: center;
+        #messageContainer {
+            padding: 30px;
+            border: solid 2px black;
+            border-radius: 10px;
+            box-shadow: 1px 0px 11px 7px rgba(166, 101, 101, 0.25);
+            -webkit-box-shadow: 1px 0px 11px 7px rgba(166, 101, 101, 0.25);
+            -moz-box-shadow: 1px 0px 11px 7px rgba(166, 101, 101, 0.25);
+            font-size: 40px;
+            font-weight: 400;
+            text-align: center;
         }
     </style>
 </head>
@@ -32,8 +32,10 @@
                 <label for="messageInput">Masukkan Pesan </label>
                 <input type="text" class="form-control" id="messageInput" required>
             </div>
-            <button type="submit" class="btn btn-primary">Kirim</button> 
-            <button type="button" onclick="bicara()" class="btn btn-danger">Bicara</button>
+            <button type="submit" class="btn btn-success">Kirim</button>
+            <button type="button" onclick="bicara()" class="btn btn-info">Bicara</button>
+            <button type="button" onclick="tampilkan()" class="btn btn-warning">Tampilkan</button>
+            <button type="button" onclick="hilangkan()" class="btn btn-danger">Hilangkan</button>
         </form>
     </div>
 
@@ -53,9 +55,21 @@
             document.getElementById('messageContainer').innerHTML = (message);
         }
 
-        function bicara(){
+        function bicara() {
             socket.emit('bicara', {
-                
+
+            });
+        }
+
+        function tampilkan() {
+            socket.emit('tampilkan', {
+
+            });
+        }
+
+        function hilangkan() {
+            socket.emit('hilangkan', {
+
             });
         }
     </script>

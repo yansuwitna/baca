@@ -37,26 +37,11 @@
     <script>
         let isi = 'kosong';
 
-        function speak() {
-            // Ambil teks dari textarea
-            //const text = document.getElementById('messageContainer').value;
+        const socket = io();
+        socket.on('messageToStudents', (data) => {
+            updateMessage(data.message); // Update message in div
+        });
 
-            // Buat objek SpeechSynthesisUtterance
-            const speech = new SpeechSynthesisUtterance();
-            speech.text = isi;
-            speech.lang = 'id-ID'; // Atur bahasa sesuai kebutuhan
-
-            // Pilih suara (opsional)
-            // const voices = window.speechSynthesis.getVoices();
-            // speech.voice = voices[0]; // Pilih suara pertama
-
-            // Mulai berbicara
-            window.speechSynthesis.speak(speech);
-        }
-
-        
-
-        // Function to update message in div
         function updateMessage(message) {
             const messageElement = document.createElement('div');
             messageElement.textContent = message;
@@ -64,21 +49,29 @@
             isi = message;
             //document.getElementById('bicara').style.display = 'none';
             // setTimeout(function () {
-            //     document.getElementById('bicara').style.display = 'block';
+            // document.getElementById('bicara').style.display = 'block';
             // }, 60000);
         }
 
-        const socket = io();
-        // Handle incoming messages from teacher (server)
-        socket.on('messageToStudents', (data) => {
-            // console.log('Message from teacher:', data.message);
-            updateMessage(data.message); // Update message in div
-        });
-
         socket.on('bicaraToStudents', (data) => {
-            // console.log('Message from teacher:', data.message);
             speak();
         });
+
+        socket.on('hilangkanToStudents', (data) => {
+            document.getElementById('bicara').style.display = 'none';
+        });
+
+        socket.on('tampilkanToStudents', (data) => {
+            document.getElementById('bicara').style.display = 'block';
+        });
+
+        function speak() {
+            const speech = new SpeechSynthesisUtterance();
+            speech.text = isi;
+            speech.lang = 'id-ID'; // Atur bahasa sesuai kebutuhan
+
+            window.speechSynthesis.speak(speech);
+        }
     </script>
 </body>
 
