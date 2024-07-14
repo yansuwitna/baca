@@ -20,15 +20,22 @@ io.on('connection', (socket) => {
     });
 
     socket.on('bicara', (data) => {
-        io.emit('bicaraToStudents', { message: data.message });
+        io.emit('bicaraToStudents');
     });
 
     socket.on('tampilkan', (data) => {
-        io.emit('tampilkanToStudents', { message: data.message });
+        io.emit('tampilkanToStudents');
     });
 
     socket.on('hilangkan', (data) => {
-        io.emit('hilangkanToStudents', { message: data.message });
+        io.emit('hilangkanToStudents');
+    });
+    socket.on('tambah', (data) => {
+        io.emit('tambah');
+    });
+
+    socket.on('kurang', (data) => {
+        io.emit('kurang');
     });
 
     // Handle disconnect

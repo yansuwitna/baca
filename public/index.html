@@ -11,7 +11,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            animation: changeColor 10s infinite;
+            /* animation: changeColor 10s infinite; */
         }
 
         @keyframes changeColor {
@@ -41,6 +41,11 @@
             }
         }
 
+        .star {
+            font-size: 40px;
+            color: gold;
+        }
+
         #messageContainer {
             padding: 30px;
             border: solid 2px black;
@@ -56,19 +61,24 @@
     </style>
 </head>
 
-<body>
+<body onload="speak()">
     <div class="container mt-5">
         <div style="margin-top: 10px; text-align: center;" id="bicara" style="display: none;">
             <button onclick="speak()" class="btn btn-warning">Bicara</button>
         </div>
+
         <div id="messageContainer" class="mt-3"></div>
+        <div class="bintang" style="text-align: center;" id="bintang">
+        </div>
 
     </div>
 
     <!-- Socket.IO Client Library -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        let isi = 'kosong';
+        let isi = 'Selamat Belajar';
+        let bintang = 0;
+        const speech = new SpeechSynthesisUtterance();
 
         const socket = io();
         socket.on('messageToStudents', (data) => {
@@ -98,8 +108,52 @@
             document.getElementById('bicara').style.display = 'block';
         });
 
+        socket.on('tambah', (data) => {
+            // alert(bintang);
+            bintang++;
+            rating(bintang);
+            speech.text = bintang + " Bintang";
+            speech.lang = 'id-ID'; // Atur bahasa sesuai kebutuhan
+
+            window.speechSynthesis.speak(speech);
+        });
+
+        socket.on('kurang', (data) => {
+            if (bintang != 0) {
+                bintang--;
+                rating(bintang);
+            }
+
+            speech.text = bintang + " Bintang";
+            speech.lang = 'id-ID'; // Atur bahasa sesuai kebutuhan
+
+            window.speechSynthesis.speak(speech);
+
+        });
+
+        function rating(jml) {
+            // Buat elemen <i>
+            const starElement = document.createElement('span');
+            const myDiv = document.getElementById('bintang');
+
+            let isi_bintang = "";
+            for (i = 1; i <= jml; i++) {
+                isi_bintang += '★';
+            }
+            // Tambahkan simbol bintang ke elemen <i>
+            starElement.innerHTML = isi_bintang;
+
+            // Tambahkan kelas CSS untuk gaya bintang
+            starElement.classList.add('star');
+
+            // Tambahkan elemen <i> ke dalam div dengan id 'myDiv'
+            myDiv.innerHTML = "";
+            myDiv.appendChild(starElement);
+
+        }
+
         function speak() {
-            const speech = new SpeechSynthesisUtterance();
+
             speech.text = isi;
             speech.lang = 'id-ID'; // Atur bahasa sesuai kebutuhan
 

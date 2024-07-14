@@ -20,6 +20,38 @@
             font-size: 50px;
             font-weight: 400;
             text-align: center;
+            background-color: white;
+        }
+
+        body {
+            /* animation: changeColor 10s infinite; */
+        }
+
+        @keyframes changeColor {
+            0% {
+                background-color: #ff9999;
+                /* Merah muda */
+            }
+
+            25% {
+                background-color: #99ff99;
+                /* Hijau muda */
+            }
+
+            50% {
+                background-color: #9999ff;
+                /* Biru muda */
+            }
+
+            75% {
+                background-color: #ffff99;
+                /* Kuning muda */
+            }
+
+            100% {
+                background-color: #ff9999;
+                /* Kembali ke merah muda */
+            }
         }
     </style>
 </head>
@@ -27,16 +59,19 @@
 <body>
     <div class="container mt-5">
         <div id="messageContainer" class="mt-3"></div>
+
         <form id="messageForm" onsubmit="sendMessage(event)">
             <div class="form-group">
                 <label for="messageInput">Masukkan Pesan </label>
-                <input type="text" class="form-control" id="messageInput" required>
+                <input type="text" class="form-control" id="messageInput" required onkeyup="kirim()">
             </div>
             <div style="text-align: center;">
-                <button type="submit" class="btn btn-success">Kirim</button>
+                <!-- <button type="submit" class="btn btn-success">Kirim</button> -->
                 <button type="button" onclick="bicara()" class="btn btn-info">Bicara</button>
                 <button type="button" onclick="tampilkan()" class="btn btn-warning">Tampilkan</button>
                 <button type="button" onclick="hilangkan()" class="btn btn-danger">Hilangkan</button>
+                <button type="button" onclick="tambah()" class="btn btn-success">+ Bintang</button>
+                <button type="button" onclick="kurang()" class="btn btn-danger">- Bintang</button>
             </div>
         </form>
     </div>
@@ -57,22 +92,32 @@
             document.getElementById('messageContainer').innerHTML = (message);
         }
 
-        function bicara() {
-            socket.emit('bicara', {
-
+        function kirim() {
+            const message = document.getElementById('messageInput').value;
+            socket.emit('sendMessage', {
+                message
             });
+            document.getElementById('messageContainer').innerHTML = (message);
+        }
+
+        function bicara() {
+            socket.emit('bicara');
         }
 
         function tampilkan() {
-            socket.emit('tampilkan', {
-
-            });
+            socket.emit('tampilkan');
         }
 
         function hilangkan() {
-            socket.emit('hilangkan', {
+            socket.emit('hilangkan');
+        }
 
-            });
+        function tambah() {
+            socket.emit('tambah');
+        }
+
+        function kurang() {
+            socket.emit('kurang');
         }
     </script>
 </body>
