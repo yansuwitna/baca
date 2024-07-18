@@ -49,6 +49,22 @@ app.get('/guru', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
+app.get('/b1', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'baca1.html'));
+});
+
+app.get('/b2', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'baca2.html'));
+});
+
+app.get('/b3', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'baca3.html'));
+});
+
+app.get('/m1', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'm1.html'));
+});
+
 const PORT = process.env.PORT || 3001;
 
 server.listen(PORT, () => {
